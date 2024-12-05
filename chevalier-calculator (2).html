@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur des Chevaliers d'Emeraude</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .tab {
+            display: none;
+        }
+        .tab.active {
+            display: block;
+        }
+        .tab-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background-color: rgb(243, 244, 246);
+            padding: 0.25rem;
+            border-radius: 0.5rem;
+            gap: 0.5rem;
+        }
+        .tab-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .tab-button.active {
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-lg shadow p-6">
+            <!-- En-tête -->
+            <div class="border-b border-gray-200 pb-4 mb-4">
+                <h1 class="text-xl font-semibold mb-1">Calculateur des Chevaliers d'Emeraude</h1>
+                <p class="text-sm text-gray-600">Année actuelle : 1443</p>
+            </div>
+
+            <!-- Navigation des onglets -->
+            <div class="tab-buttons mb-6">
+                <button onclick="showTab('year')" class="tab-button active">Par année de recrutement</button>
+                <button onclick="showTab('age')" class="tab-button">Par âge actuel</button>
+                <button onclick="showTab('birth')" class="tab-button">Par année de naissance</button>
+            </div>
+
+            <!-- Contenu des onglets -->
+            <div id="yearTab" class="tab active space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Année de recrutement</label>
+                    <input 
+                        type="number" 
+                        min="1421" 
+                        max="1443" 
+                        placeholder="Exemple : 1429"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
+                        id="yearInput"
+                        onchange="calculateFromYear(this.value)"
+                    >
+                </div>
+                <div id="yearResults" class="hidden bg-gray-50 p-4 rounded-lg"></div>
+            </div>
+
+            <div id="ageTab" class="tab space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Âge actuel</label>
+                    <input 
+                        type="number" 
+                        min="16" 
+                        max="33" 
+                        placeholder="Exemple : 22"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
+                        id="ageInput"
+                        onchange="calculateFromAge(this.value)"
+                    >
+                </div>
+                <div id="ageResults" class="hidden bg-gray-50 p-4 rounded-lg"></div>
+            </div>
+
+            <div id="birthTab" class="tab space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Année de naissance</label>
+                    <input 
+                        type="number" 
+                        min="1410" 
+                        max="1441" 
+                        placeholder="Exemple : 1421"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
+                        id="birthInput"
+                        onchange="calculateFromBirth(this.value)"
+                    >
+                </div>
+                <div id="birthResults" class="hidden bg-gray-50 p-4 rounded-lg"></div>
+            </div>
+
+            <!-- Notes -->
+            <div class="text-sm mt-4">
+                <p class="font-semibold">Notes importantes :</p>
+                <ul class="list-disc pl-6 mt-2">
+                    <li>Premier recrutement en 1421</li>
+                    <li>2 ans et 11 ans sont des cas exceptionnels</li>
+                    <li>L'âge normal de recrutement est entre 4 et 8 ans</li>
+                    <li>Il est possible de devenir Chevalier avant 20 ans dans des cas exceptionnels</li>
+                    <li>Généralement, on devient Chevalier entre 20 et 22 ans</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const currentYear = 1443;
+
+        function showTab(tabName) {
+            // Cache tous les onglets
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            
+            // Affiche l'onglet sélectionné
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
+        }
+
+        function calculateFromYear(year) {
+            if (!year) return;
+            year = parseInt(year);
+            
+            const results = {
+                recruitedAt2: currentYear - (year - 2),
+                recruitedAt4: currentYear - (year - 4),
+                recruitedAt8: currentYear - (year - 8),
+                recruitedAt11: currentYear - (year - 11)
+            };
+
+            const html = `
+                <p class="font-bold">Les Chevaliers recrutés en ${year} ont maintenant :</p>
+                <ul class="space-y-2">
+                    <li><span class="text-gray-600">Si recrutés à 2 ans (cas exceptionnel) :</span> ${results.recruitedAt2} ans</li>
+                    <li><span class="text-gray-600">Si recrutés à 4 ans :</span> ${results.recruitedAt4} ans</li>
+                    <li><span class="text-gray-600">Si recrutés à 8 ans :</span> ${results.recruitedAt8} ans</li>
+                    <li><span class="text-gray-600">Si recrutés à 11 ans (cas exceptionnel) :</span> ${results.recruitedAt11} ans</li>
+                </ul>
+            `;
+
+            const resultsDiv = document.getElementById('yearResults');
+            resultsDiv.innerHTML = html;
+            resultsDiv.classList.remove('hidden');
+        }
+
+        function calculateFromAge(age) {
+            if (!age) return;
+            age = parseInt(age);
+            
+            const birth = currentYear - age;
+            const results = {
+                ifRecruitedAt2: birth + 2,
+                ifRecruitedAt4: birth + 4,
+                ifRecruitedAt8: birth + 8,
+                ifRecruitedAt11: birth + 11
+            };
+
+            const html = `
+                <p class="font-bold">Un Chevalier de ${age} ans aurait pu être recruté :</p>
+                <ul class="space-y-2">
+                    <li><span class="text-gray-600">Si recruté à 2 ans (cas exceptionnel) :</span> en ${results.ifRecruitedAt2}</li>
+                    <li><span class="text-gray-600">Si recruté à 4 ans :</span> en ${results.ifRecruitedAt4}</li>
+                    <li><span class="text-gray-600">Si recruté à 8 ans :</span> en ${results.ifRecruitedAt8}</li>
+                    <li><span class="text-gray-600">Si recruté à 11 ans (cas exceptionnel) :</span> en ${results.ifRecruitedAt11}</li>
+                </ul>
+            `;
+
+            const resultsDiv = document.getElementById('ageResults');
+            resultsDiv.innerHTML = html;
+            resultsDiv.classList.remove('hidden');
+        }
+
+        function calculateFromBirth(year) {
+            if (!year) return;
+            year = parseInt(year);
+            
+            const currentAge = currentYear - year;
+            const results = {
+                at2: year + 2,
+                at4: year + 4,
+                at8: year + 8,
+                at11: year + 11
+            };
+
+            const html = `
+                <p class="font-bold">Une personne née en ${year} :</p>
+                <p>A maintenant ${currentAge} ans</p>
+                <p class="font-bold mt-4">Années possibles de recrutement :</p>
+                <ul class="space-y-2">
+                    <li><span class="text-gray-600">À 2 ans (cas exceptionnel) :</span> en ${results.at2}</li>
+                    <li><span class="text-gray-600">À 4 ans :</span> en ${results.at4}</li>
+                    <li><span class="text-gray-600">À 8 ans :</span> en ${results.at8}</li>
+                    <li><span class="text-gray-600">À 11 ans (cas exceptionnel) :</span> en ${results.at11}</li>
+                </ul>
+            `;
+
+            const resultsDiv = document.getElementById('birthResults');
+            resultsDiv.innerHTML = html;
+            resultsDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

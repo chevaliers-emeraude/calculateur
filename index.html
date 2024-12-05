@@ -38,20 +38,17 @@
 <body class="min-h-screen bg-gray-100 p-6">
     <div class="max-w-4xl mx-auto">
         <div class="bg-white rounded-lg shadow p-6">
-            <!-- En-tête -->
             <div class="border-b border-gray-200 pb-4 mb-4">
                 <h1 class="text-xl font-semibold mb-1">Calculateur des Chevaliers d'Emeraude</h1>
                 <p class="text-sm text-gray-600">Année actuelle : 1443</p>
             </div>
 
-            <!-- Navigation des onglets -->
             <div class="tab-buttons mb-6">
                 <button onclick="showTab('year')" class="tab-button active">Par année de recrutement</button>
                 <button onclick="showTab('age')" class="tab-button">Par âge actuel</button>
                 <button onclick="showTab('birth')" class="tab-button">Par année de naissance</button>
             </div>
 
-            <!-- Contenu des onglets -->
             <div id="yearTab" class="tab active space-y-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Année de recrutement</label>
@@ -62,7 +59,7 @@
                         placeholder="Exemple : 1429"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
                         id="yearInput"
-                        onchange="calculateFromYear(this.value)"
+                        oninput="calculateFromYear(this.value)"
                     >
                 </div>
                 <div id="yearResults" class="hidden bg-gray-50 p-4 rounded-lg"></div>
@@ -78,7 +75,7 @@
                         placeholder="Exemple : 22"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
                         id="ageInput"
-                        onchange="calculateFromAge(this.value)"
+                        oninput="calculateFromAge(this.value)"
                     >
                 </div>
                 <div id="ageResults" class="hidden bg-gray-50 p-4 rounded-lg"></div>
@@ -94,13 +91,12 @@
                         placeholder="Exemple : 1421"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
                         id="birthInput"
-                        onchange="calculateFromBirth(this.value)"
+                        oninput="calculateFromBirth(this.value)"
                     >
                 </div>
                 <div id="birthResults" class="hidden bg-gray-50 p-4 rounded-lg"></div>
             </div>
 
-            <!-- Notes -->
             <div class="text-sm mt-4">
                 <p class="font-semibold">Notes importantes :</p>
                 <ul class="list-disc pl-6 mt-2">
@@ -118,11 +114,9 @@
         const currentYear = 1443;
 
         function showTab(tabName) {
-            // Cache tous les onglets
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
             
-            // Affiche l'onglet sélectionné
             document.getElementById(tabName + 'Tab').classList.add('active');
             document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
         }

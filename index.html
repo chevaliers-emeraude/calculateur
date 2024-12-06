@@ -54,7 +54,7 @@
                     <label class="block text-sm font-medium text-gray-700">Année de recrutement</label>
                     <input 
                         type="number" 
-                        min="1421" 
+                        min="1423" 
                         max="1443" 
                         placeholder="Exemple : 1429"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
@@ -101,7 +101,7 @@
                 <p class="font-semibold">Notes importantes :</p>
                 <ul class="list-disc pl-6 mt-2">
                     <li>Premier recrutement en 1423</li>
-                    <li>Les recrutements avaient lieu tous les 6 ans</li>
+                    <li>Les recrutements avaient lieu tous les 6 ans (1423, 1429, 1435, 1441)</li>
                     <li>L'âge de recrutement est entre 5 et 10 ans</li>
                     <li>Il est possible de devenir Chevalier avant 20 ans dans des cas exceptionnels</li>
                     <li>Généralement, on devient Chevalier entre 20 et 22 ans</li>
@@ -124,16 +124,16 @@
             if (!year) return;
             year = parseInt(year);
             
-            const results = {
-                recruitedAt5: currentYear - (year - 5),
-                recruitedAt10: currentYear - (year - 10)
-            };
+            let listItems = '';
+            for(let age = 5; age <= 10; age++) {
+                const currentAge = currentYear - (year - age);
+                listItems += `<li><span class="text-gray-600">Si recrutés à ${age} ans :</span> ${currentAge} ans</li>`;
+            }
 
             const html = `
                 <p class="font-bold">Les Chevaliers recrutés en ${year} ont maintenant :</p>
                 <ul class="space-y-2">
-                    <li><span class="text-gray-600">Si recrutés à 5 ans :</span> ${results.recruitedAt5} ans</li>
-                    <li><span class="text-gray-600">Si recrutés à 10 ans :</span> ${results.recruitedAt10} ans</li>
+                    ${listItems}
                 </ul>
             `;
 
@@ -147,16 +147,16 @@
             age = parseInt(age);
             
             const birth = currentYear - age;
-            const results = {
-                ifRecruitedAt5: birth + 5,
-                ifRecruitedAt10: birth + 10
-            };
+            let listItems = '';
+            for(let recruitAge = 5; recruitAge <= 10; recruitAge++) {
+                const recruitmentYear = birth + recruitAge;
+                listItems += `<li><span class="text-gray-600">Si recruté à ${recruitAge} ans :</span> en ${recruitmentYear}</li>`;
+            }
 
             const html = `
                 <p class="font-bold">Un Chevalier de ${age} ans aurait pu être recruté :</p>
                 <ul class="space-y-2">
-                    <li><span class="text-gray-600">Si recruté à 5 ans :</span> en ${results.ifRecruitedAt5}</li>
-                    <li><span class="text-gray-600">Si recruté à 10 ans :</span> en ${results.ifRecruitedAt10}</li>
+                    ${listItems}
                 </ul>
             `;
 
@@ -170,18 +170,18 @@
             year = parseInt(year);
             
             const currentAge = currentYear - year;
-            const results = {
-                at5: year + 5,
-                at10: year + 10
-            };
+            let listItems = '';
+            for(let age = 5; age <= 10; age++) {
+                const recruitmentYear = year + age;
+                listItems += `<li><span class="text-gray-600">À ${age} ans :</span> en ${recruitmentYear}</li>`;
+            }
 
             const html = `
                 <p class="font-bold">Une personne née en ${year} :</p>
                 <p>A maintenant ${currentAge} ans</p>
                 <p class="font-bold mt-4">Années possibles de recrutement :</p>
                 <ul class="space-y-2">
-                    <li><span class="text-gray-600">À 5 ans :</span> en ${results.at5}</li>
-                    <li><span class="text-gray-600">À 10 ans :</span> en ${results.at10}</li>
+                    ${listItems}
                 </ul>
             `;
 

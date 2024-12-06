@@ -100,9 +100,9 @@
             <div class="text-sm mt-4">
                 <p class="font-semibold">Notes importantes :</p>
                 <ul class="list-disc pl-6 mt-2">
-                    <li>Premier recrutement en 1421</li>
-                    <li>2 ans et 11 ans sont des cas exceptionnels</li>
-                    <li>L'âge normal de recrutement est entre 4 et 8 ans</li>
+                    <li>Premier recrutement en 1423</li>
+                    <li>Les recrutements avaient lieu tous les 6 ans</li>
+                    <li>L'âge de recrutement est entre 5 et 10 ans</li>
                     <li>Il est possible de devenir Chevalier avant 20 ans dans des cas exceptionnels</li>
                     <li>Généralement, on devient Chevalier entre 20 et 22 ans</li>
                 </ul>
@@ -116,7 +116,6 @@
         function showTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
-            
             document.getElementById(tabName + 'Tab').classList.add('active');
             document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
         }
@@ -126,19 +125,15 @@
             year = parseInt(year);
             
             const results = {
-                recruitedAt2: currentYear - (year - 2),
-                recruitedAt4: currentYear - (year - 4),
-                recruitedAt8: currentYear - (year - 8),
-                recruitedAt11: currentYear - (year - 11)
+                recruitedAt5: currentYear - (year - 5),
+                recruitedAt10: currentYear - (year - 10)
             };
 
             const html = `
                 <p class="font-bold">Les Chevaliers recrutés en ${year} ont maintenant :</p>
                 <ul class="space-y-2">
-                    <li><span class="text-gray-600">Si recrutés à 2 ans (cas exceptionnel) :</span> ${results.recruitedAt2} ans</li>
-                    <li><span class="text-gray-600">Si recrutés à 4 ans :</span> ${results.recruitedAt4} ans</li>
-                    <li><span class="text-gray-600">Si recrutés à 8 ans :</span> ${results.recruitedAt8} ans</li>
-                    <li><span class="text-gray-600">Si recrutés à 11 ans (cas exceptionnel) :</span> ${results.recruitedAt11} ans</li>
+                    <li><span class="text-gray-600">Si recrutés à 5 ans :</span> ${results.recruitedAt5} ans</li>
+                    <li><span class="text-gray-600">Si recrutés à 10 ans :</span> ${results.recruitedAt10} ans</li>
                 </ul>
             `;
 
@@ -153,19 +148,15 @@
             
             const birth = currentYear - age;
             const results = {
-                ifRecruitedAt2: birth + 2,
-                ifRecruitedAt4: birth + 4,
-                ifRecruitedAt8: birth + 8,
-                ifRecruitedAt11: birth + 11
+                ifRecruitedAt5: birth + 5,
+                ifRecruitedAt10: birth + 10
             };
 
             const html = `
                 <p class="font-bold">Un Chevalier de ${age} ans aurait pu être recruté :</p>
                 <ul class="space-y-2">
-                    <li><span class="text-gray-600">Si recruté à 2 ans (cas exceptionnel) :</span> en ${results.ifRecruitedAt2}</li>
-                    <li><span class="text-gray-600">Si recruté à 4 ans :</span> en ${results.ifRecruitedAt4}</li>
-                    <li><span class="text-gray-600">Si recruté à 8 ans :</span> en ${results.ifRecruitedAt8}</li>
-                    <li><span class="text-gray-600">Si recruté à 11 ans (cas exceptionnel) :</span> en ${results.ifRecruitedAt11}</li>
+                    <li><span class="text-gray-600">Si recruté à 5 ans :</span> en ${results.ifRecruitedAt5}</li>
+                    <li><span class="text-gray-600">Si recruté à 10 ans :</span> en ${results.ifRecruitedAt10}</li>
                 </ul>
             `;
 
@@ -180,10 +171,8 @@
             
             const currentAge = currentYear - year;
             const results = {
-                at2: year + 2,
-                at4: year + 4,
-                at8: year + 8,
-                at11: year + 11
+                at5: year + 5,
+                at10: year + 10
             };
 
             const html = `
@@ -191,10 +180,8 @@
                 <p>A maintenant ${currentAge} ans</p>
                 <p class="font-bold mt-4">Années possibles de recrutement :</p>
                 <ul class="space-y-2">
-                    <li><span class="text-gray-600">À 2 ans (cas exceptionnel) :</span> en ${results.at2}</li>
-                    <li><span class="text-gray-600">À 4 ans :</span> en ${results.at4}</li>
-                    <li><span class="text-gray-600">À 8 ans :</span> en ${results.at8}</li>
-                    <li><span class="text-gray-600">À 11 ans (cas exceptionnel) :</span> en ${results.at11}</li>
+                    <li><span class="text-gray-600">À 5 ans :</span> en ${results.at5}</li>
+                    <li><span class="text-gray-600">À 10 ans :</span> en ${results.at10}</li>
                 </ul>
             `;
 
